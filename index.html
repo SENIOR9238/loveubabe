@@ -249,8 +249,9 @@
 <body>
 
 <audio id="Song" loop>
-    <source src="Song.mp3">
+<source src="Song.mp3">
 </audio>
+
 
 
 
@@ -695,6 +696,18 @@ function drainLoveQueue() {
         }, duration);
     }, 130);
 }
+
+// ── Unlock audio on very first interaction ──
+(function() {
+    const audio = document.getElementById('Song');
+    function unlock() {
+        audio.play().catch(() => {});
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('touchstart', unlock);
+    }
+    document.addEventListener('click', unlock);
+    document.addEventListener('touchstart', unlock);
+})();
 
 // ── Cursor ──
 const cursor = document.getElementById('cursor');
